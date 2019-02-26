@@ -1,0 +1,12 @@
+{% block content %}
+<div class="centerstage">
+
+    {% for post in post_list %}
+        <div class="post">
+            {{ post.postAuthor }}
+            {{ post.category}}
+            {{ post.postContent }}
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}
