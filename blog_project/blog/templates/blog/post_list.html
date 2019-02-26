@@ -1,12 +1,17 @@
-{% block content %}
-<div class="centerstage">
+{% include 'blog/base.html' %}
 
+{% block content %}
+{% endblock %}
+<br> <br>
+<div class = "row">
     {% for post in post_list %}
-        <div class="post">
-            {{ post.postAuthor }}
-            {{ post.category}}
-            {{ post.postContent }}
-        </div>
+    <div class = "col-md-2"> </div>
+    <div class = "col-md-4">
+        <h4> Blog Title: {{ post.title }} </h4>
+        <h6> Author: {{ post.postAuthor }}</h6>
+        <h6> Category: {{ post.category }}</h6>
+        <br>
+        {{ post.postContent }}
+    </div>
     {% endfor %}
 </div>
-{% endblock %}

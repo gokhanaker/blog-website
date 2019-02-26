@@ -1,0 +1,37 @@
+<!-- this template file is used as a base for template inheritance -->
+<!DOCTYPE html>
+{% load static %}
+<html>
+    <head>
+        <title>Blog Project</title>
+        <!-- minified CSS from bootstrap 3 -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+        <!-- loading static CSS files -->
+        <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+
+<body class='wrapper'>
+
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="{% url 'blog:postList' %}">Blogging Website</a>
+      </div>
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="{% url 'blog:postList' %}">Home</a></li>
+        <li><a href="www.github.com">Github</a></li>
+        <li><a href="www.linkedin.com"> Linkedin</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      </ul>
+    </div>
+  </nav>
+
+<!-- loading static Javascript files -->
+<script type="text/javascript" src="{% static 'js/blog.js' %}"></script>
+
+</body>
+</html>
