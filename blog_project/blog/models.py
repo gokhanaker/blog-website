@@ -15,7 +15,6 @@ class Post(models.Model):
     category = models.CharField(max_length = 150)
     postContent = models.TextField()
     postCreatedDate = models.DateTimeField(default = timezone.now)
-    publishedDate = models.DateTimeField(blank = True, null = True)
     postLikes = models.IntegerField(default = 0)
 
     def publish(self):
