@@ -10,6 +10,7 @@
 
         <!-- loading static CSS files -->
         <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+    </head>
 
 <body class='wrapper'>
 
@@ -20,6 +21,7 @@
       </div>
       <ul class="nav navbar-nav">
         <li class="active"><a href="{% url 'blog:postList' %}">Home</a></li>
+        <li><a href="{% url 'blog:newPost' %}">Create Blog Post</a></li>
         <li><a href="www.github.com">Github</a></li>
         <li><a href="www.linkedin.com"> Linkedin</a></li>
       </ul>

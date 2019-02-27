@@ -1,0 +1,33 @@
+{% load widget_tweaks %}
+
+{% include 'blog/base.html' %}
+
+{% block content %}
+{% endblock %}
+<br> <br>
+<div class = "container" >
+    <div class = "text-center">
+      <h2>Create Your Blog Post ! </h2>
+      <form action = "publish/" method="POST">
+        {% csrf_token %}
+
+        {% for hidden_field in form.hidden_fields %}
+          {{ hidden_field }}
+        {% endfor %}
+
+        {% for field in form.visible_fields %}
+          <div class="form-group">
+            {{ field.label_tag }}
+            {% render_field field class="form-control" %}
+            {% if field.help_text %}
+            <small class="form-text text-muted">{{ field.help_text }}</small>
+            {% endif %}
+          </div>
+        {% endfor %}
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+
+    </div>
+</div>
+</div>
