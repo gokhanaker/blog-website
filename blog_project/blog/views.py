@@ -63,3 +63,9 @@ def updatingEditedPost(request, post_id):
             form.save()
     # returning to homepage
     return HttpResponseRedirect('/')
+
+
+def deletePost(request, post_id):
+    # deleting a record from Post model
+    Post.objects.filter(pk = post_id).delete()
+    return HttpResponseRedirect('/')
