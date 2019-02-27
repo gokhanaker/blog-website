@@ -1,0 +1,33 @@
+{% include 'blog/base.html' %}
+
+{% block content %}
+{% endblock %}
+
+<br> <br>
+<div class = "container" >
+  <div class = "row">
+      <div class = "col-md-4"> </div>
+      <div class = "col-md-4">
+        <h4> Blog Title: {{ post.title }} </h4>
+        <h6> Category: {{ post.category }}</h6>
+        <h6> Date: {{ post.publishedDate }}
+        <h6> Author: {{ post.postAuthor }}</h6>
+        <br>
+          {{ post.postContent }}
+        <br>
+        likes:  {{ post.postLikes }}
+        <br>
+        <br>
+        <!-- displaying comments of that blog post -->
+        {% for comment in post.comment_set.all %}
+          <ul>
+            {{ comment.commentContent }}
+            {{ comment.commentAuthor }}
+            {{ comment.commentCreatedDate }}
+            <br> <br>
+           </ul>
+        {% endfor %}
+      </div>
+      <!-- <div class = "col-md-1"> </div> -->
+  </div>
+</div>
