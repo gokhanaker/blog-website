@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404, get_list_or_404, HttpResponseRedirect
+from django.shortcuts import render, get_object_or_404, get_list_or_404, HttpResponseRedirect, redirect
 from django.http import HttpResponse
 from . import forms
 from blog.models import Post, Comment
@@ -61,11 +61,19 @@ def updatingEditedPost(request, post_id):
             print ("content: " + form.cleaned_data['postContent'])
             # saving form data to our model
             form.save()
-    # returning to homepage
-    return HttpResponseRedirect('/')
-
+            
+    # navigating to detail page
+    return redirect('blog:postDetail', post_id = post.pk)
 
 def deletePost(request, post_id):
     # deleting a record from Post model
     Post.objects.filter(pk = post_id).delete()
     return HttpResponseRedirect('/')
+
+
+def likePost(request, post_id):
+    post = get_object_or_404(Post, pk = post_id)
+    post.postLikes += 1
+    post.save()
+
+    return redirect('blog:postDetail', post_id = post.pk)

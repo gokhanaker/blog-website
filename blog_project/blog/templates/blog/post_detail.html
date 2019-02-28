@@ -14,8 +14,8 @@
         <h6> Author: {{ post.postAuthor }}</h6>
         <br>
           {{ post.postContent }}
-        <br>
-        likes:  {{ post.postLikes }}
+        <br><br>
+        User Likes:  {{ post.postLikes }}
         <br>
         <br>
         <!-- displaying comments of that blog post -->
@@ -27,13 +27,17 @@
             <br> <br>
            </ul>
         {% endfor %}
+
+        <a href="/post/like/{{post.pk}}" class="btn btn-success btn-md">
+          <span class="glyphicon glyphicon-thumbs-up"></span> Like
+        </a>
+
+        <br> <br> <br> <br>
         <!-- a link as a button to edit a post -->
         <a href='/post/edit/{{post.pk}}' class="btn btn-info" role="button"> Edit Post</a>
         <!-- a link as a button to delete your post -->
         <a href='/post/delete/{{post.pk}}' class="btn btn-danger" role="button"
         onclick="return confirm('Are you sure you want to delete this?')"> Delete Post</a>
-
       </div>
-
   </div>
 </div>
