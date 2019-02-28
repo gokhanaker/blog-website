@@ -31,17 +31,26 @@
               <br>
               {{ comment.commentContent }}
               <br>
+              <!-- a link to edit a comment -->
+              <a href='/post/{{post.pk}}/edit/comment/{{comment.pk}}'>
+                  Edit Comment <span class="glyphicon glyphicon-edit"></span>
+              </a>
+              <!-- a link to delete a comment -->
+              <a href='/post/{{post.pk}}/delete/comment/{{comment.pk}}' style ="color:red"
+               onclick="return confirm('Do you want to delete this comment?')">
+                  Delete Comment <span class="glyphicon glyphicon-remove" style ="color:red"></span>
+              </a>
             </ul>
             {% endfor %}
           </div>
         <br>
         <!-- a link as a button to add a comment to a post -->
-        <a href='/post/{{post.pk}/add/comment}' class="btn btn-info" role="button"> Add Comment</a>
+        <a href='/post/{{post.pk}}/add/comment' class="btn btn-info" role="button"> Add Comment</a>
         <!-- a link as a button to edit a post -->
         <a href='/post/edit/{{post.pk}}' class="btn btn-warning" role="button"> Edit Post</a>
         <!-- a link as a button to delete your post -->
         <a href='/post/delete/{{post.pk}}' class="btn btn-danger" role="button"
-        onclick="return confirm('Are you sure you want to delete this?')"> Delete Post</a>
+        onclick="return confirm('Do you want to delete this post?')"> Delete Post</a>
       </div>
   </div>
 </div>

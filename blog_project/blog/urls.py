@@ -14,4 +14,9 @@ urlpatterns = [
     path('post/edit/<int:post_id>/update/', views.updatingEditedPost, name = 'updatingEditedPost'),
     path('post/delete/<int:post_id>/', views.deletePost, name = 'deletePost'),
     path('post/like/<int:post_id>/', views.likePost, name = 'likePost'),
+    path('post/<int:post_id>/add/comment/', views.addComment, name = 'addComment'),
+    path('post/<int:post_id>/add/comment/publish/', views.publishComment, name = 'publishComment'),
+    path('post/<int:post_id>/edit/comment/<int:comment_id>/', views.editComment, name = 'editComment'),
+    path('post/<int:post_id>/edit/comment/<int:comment_id>/update/', views.updateEditedComment, name = 'updateEditedComment'),
+    path('post/<int:post_id>/delete/comment/<int:comment_id>/', views.deleteComment, name = 'deleteComment')
 ]
