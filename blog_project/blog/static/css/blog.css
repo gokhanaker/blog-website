@@ -1,3 +1,9 @@
 body{
   background-color: #EAE6DA;
 }
+
+.comments{
+  background-color: #D2C29D;
+}
+
+hr { background-color: black; height: 0.5px; border: 0; }
