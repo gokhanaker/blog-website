@@ -1,15 +1,11 @@
 {% include "blog/base.html" %}
-{% load staticfiles %}
 
 {% load widget_tweaks %}
 
-{% block content %}
-{% endblock %}
-
 <div class = "container" >
     <div class = "text-center">
-      <h2>Login Page! </h2>
-      <form enctype="multipart/form-data" method="POST" action = "validate/">
+      <h2> Registration Page ! </h2>
+      <form action = "validate/"enctype="multipart/form-data" method="POST">
         {% csrf_token %}
 
         {% for hidden_field in user_form.hidden_fields %}

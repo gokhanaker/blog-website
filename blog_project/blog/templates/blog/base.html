@@ -22,12 +22,11 @@
       <ul class="nav navbar-nav">
         <li class="active"><a href="{% url 'blog:postList' %}">Home</a></li>
         <li><a href="{% url 'blog:newPost' %}">Create Blog Post</a></li>
-        <li><a href="www.github.com">Github</a></li>
-        <li><a href="www.linkedin.com"> Linkedin</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <li><a href="{% url 'blog:registration' %}"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
       </ul>
     </div>
   </nav>

@@ -2,6 +2,8 @@ from django.db import models
 from django_currentuser.middleware import (get_current_user, get_current_authenticated_user)
 from django_currentuser.db.models import CurrentUserField
 from django.utils import timezone
+# importing User model for registration, login, logout 
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -30,8 +32,6 @@ class Comment(models.Model):
     commentAuthor = CurrentUserField()
     commentContent = models.TextField()
     commentCreatedDate = models.DateTimeField(default = timezone.now)
-    commentLikes = models.IntegerField(default = 0)
-    commentDislikes = models.IntegerField(default = 0)
 
     def __str__(self):
         return self.commentContent

@@ -5,8 +5,12 @@ from . import views
 app_name = 'blog'
 
 urlpatterns = [
+    path('registration/', views.registration, name = 'registration'),
+    path('registration/validate/', views.validateRegistration, name = 'validateRegistration'),
+    path('login/', views.login, name = 'login'),
+    path('login/validate/', views.validateLogin, name = 'validateLogin'),
+    path('logout/', views.logout, name = 'logout'),
     path('', views.postList, name='postList'),
-    # path('about/', views.about, name='about'),
     path('post/<int:post_id>/', views.postDetail, name='postDetail'),
     path('post/new/', views.newPost, name= 'newPost'),
     path('post/new/publish/', views.publishPost, name = 'publishPost'),

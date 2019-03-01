@@ -1,9 +1,26 @@
+
+*{
+  font-family: Verdana, Arial, Georgia;
+  font-size: 12pt;
+}
+
 body{
-  background-color: #EAE6DA;
+  /* color: Coconut Milk */
+  background-color: #F0EDE5;
+}
+
+hr {
+  background-color: black;
+  height: 0.5px;
+  border: 0;
+}
+
+a:hover{
+  /* color: Greenery */
+  color: #92B558;
 }
 
 .comments{
-  background-color: #D2C29D;
+  /* color: Tofu */
+  background-color: #EAE6DA;
 }
-
-hr { background-color: black; height: 0.5px; border: 0; }

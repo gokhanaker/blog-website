@@ -1,20 +1,18 @@
+<!-- loading base.html -->
 {% include 'blog/base.html' %}
 
-{% block content %}
-{% endblock %}
-<br> <br>
+<br>
 <div class = "container-fluid" >
+  <h3 class = "text-center"> Blog Posts </h3>
   <div class = "row">
       {% for post in post_list %}
       <div class = "col-md-1"> </div>
       <div class = "col-md-3">
-        <h4> <a href= "{% url 'blog:postDetail' post_id=post.pk %}"> Blog Title: {{ post.title }} </a> </h4>
-        <h6> Category: {{ post.category }}</h6>
-        <h6> Author: {{ post.postAuthor }}</h6>
-        <br>
-         <!-- {{ post.postContent }} -->
+        <!-- a navigation link to that post's detail page -->
+        <h3> <a href= "{% url 'blog:postDetail' post_id=post.pk %}"> Blog Title: {{ post.title }} </a> </h3>
+        <h5> Category: {{ post.category }}</h5>
+        <h5> Author: {{ post.postAuthor }}</h5>
       </div>
-      <!-- <div class = "col-md-1"> </div> -->
-    {% endfor %}
+      {% endfor %}
   </div>
 </div>
