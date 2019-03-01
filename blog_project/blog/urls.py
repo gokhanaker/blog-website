@@ -5,8 +5,8 @@ from . import views
 app_name = 'blog'
 
 urlpatterns = [
-    path('registration/', views.registration, name = 'registration'),
-    path('registration/validate/', views.validateRegistration, name = 'validateRegistration'),
+    path('signup/', views.signup, name = 'signup'),
+    path('signup/validate/', views.validateSignup, name = 'validateSignup'),
     path('login/', views.login, name = 'login'),
     path('login/validate/', views.validateLogin, name = 'validateLogin'),
     path('logout/', views.logout, name = 'logout'),

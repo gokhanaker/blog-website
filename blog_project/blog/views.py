@@ -1,27 +1,22 @@
 from django.shortcuts import render, get_object_or_404, get_list_or_404, HttpResponseRedirect, redirect, reverse
 from django.http import HttpResponse
-from . import forms
 from blog.models import Post, Comment
-from django.utils import timezone
+from . import forms
 from blog.forms import PostForm, CommentForm, UserForm
-from django.urls import reverse_lazy
+from django.utils import timezone
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
-
 from django.contrib.auth.decorators import login_required
 
 
-def registration(request):
-
+def signup(request):
     registered = False
     user_form = UserForm()
-    return render(request,'registration/signup.html',
-                          {'user_form':user_form,
-                           'registered':registered})
+    return render(request,'registration/signup.html',{'user_form':user_form, 'registered':registered})
 
-def validateRegistration(request):
+def validateSignup(request):
     if request.method == 'POST':
 
         user_form = UserForm(data=request.POST)
@@ -45,28 +40,25 @@ def validateRegistration(request):
 def login(request):
     login = False
     user_form = UserForm()
-    return render(request,'registration/login.html',
-                              {'user_form':user_form,
-                               'login':login})
+    return render(request,'registration/login.html',{'user_form':user_form,'login':login})
 
 def validateLogin(request):
 
     if request.method == 'POST':
-        # First get the username and password supplied
+        # getting the username and password supplied
         username = request.POST.get('username')
         password = request.POST.get('password')
 
         # Django's built-in authentication function:
         user = authenticate(username=username, password=password)
 
-        # If we have a user
+        # if we have a user
         if user:
-            #Check it the account is active
+            # checking it the account is active
             if user.is_active:
-                # Log the user in.
+                # log the user in.
                 auth_login(request,user)
-                # Send the user back to some page.
-                # In this case their homepage.
+                # navigate to homepage
                 return HttpResponseRedirect('/')
             else:
                 # If account is not active:
@@ -77,7 +69,6 @@ def validateLogin(request):
             return HttpResponse("Invalid login details supplied.")
 
     else:
-        #Nothing has been provided for username or password.
         return render(request, 'blog:login', {})
 
 @login_required
@@ -101,11 +92,12 @@ def postDetail(request, post_id):
     # sending that post object as a parameter to template
     return render (request, 'blog/post_detail.html', {'post': post})
 
+@login_required
 def newPost(request):
     # getting PostForm
-    form = PostForm(request.POST)
-    # sending postForm as a parameter to template in python dictionary structure
-    return render (request, 'blog/post_form.html', {'form': form})
+    post_form = PostForm(request.POST)
+    # sending post form as a parameter to template
+    return render (request, 'blog/post_form.html', {'post_form': post_form})
 
 # creates a blog post for drafts but not publish yet
 @login_required
@@ -120,38 +112,46 @@ def publishPost(request):
             print ("content: " + form.cleaned_data['postContent'])
             # saving form data to our model
             form.save()
-    return HttpResponseRedirect('/')
+            return HttpResponseRedirect('/')
+
+        else:
+            print(form.errors)
+            return HttpResponseRedirect('/blog/post_form.html')
 
 @login_required
 def editPost(request, post_id):
     # retrieving post object from database using its primary key
     post = get_object_or_404(Post, pk = post_id)
-    # sending post object to display them in the form field
-    form = PostForm(instance = post)
-    # sending that form as a parameter to template
-    return render (request, 'blog/post_edit.html', {'form': form})
+    # sending post object to display its fields in the PostForm
+    post_edit_form = PostForm(instance = post)
+    return render(request, 'blog/post_edit.html', {'post_edit_form': post_edit_form})
+
 
 @login_required
 def updatingEditedPost(request, post_id):
     if request.method == 'POST':
         post = get_object_or_404(Post, pk = post_id)
+        # instance field is required to update the same post object NOT duplicate
         form = forms.PostForm(request.POST, instance=post)
 
         if form.is_valid():
-            # printing the post fields
             print ("title: " + form.cleaned_data['title'])
             print ("category: " + form.cleaned_data['category'])
             print ("content: " + form.cleaned_data['postContent'])
             # saving form data to our model
             form.save()
+            # navigating to post detail page
+            return redirect('blog:postDetail', post_id = post.pk)
+        else:
+            print(form.errors)
+            return HttpResponseRedirect('/blog/post_edit.html')
 
-    # navigating to detail page
-    return redirect('blog:postDetail', post_id = post.pk)
 @login_required
 def deletePost(request, post_id):
     # deleting a record from Post model
     Post.objects.filter(pk = post_id).delete()
-    return HttpResponseRedirect('/')
+    return redirect('/')
+
 @login_required
 def likePost(request, post_id):
     post = get_object_or_404(Post, pk = post_id)
@@ -161,8 +161,8 @@ def likePost(request, post_id):
 
 @login_required
 def addComment(request, post_id):
-    form = CommentForm(request.POST)
-    return render (request, 'blog/comment_form.html', {'form': form})
+    comment_form = CommentForm(request.POST)
+    return render (request, 'blog/comment_form.html', {'comment_form': comment_form})
 
 @login_required
 def publishComment(request, post_id):
@@ -184,10 +184,9 @@ def publishComment(request, post_id):
 def editComment(request, post_id, comment_id):
         post = get_object_or_404(Post, pk = post_id)
         comment = get_object_or_404(Comment, pk = comment_id)
-        # sending comment object to display them in the form field
-        form = CommentForm(instance = comment)
-        # sending that form as a parameter to template
-        return render (request, 'blog/comment_edit.html', {'form': form})
+        # sending comment object to display its fields in the comment form
+        comment_edit_form = CommentForm(instance = comment)
+        return render (request, 'blog/comment_edit.html', {'comment_edit_form': comment_edit_form})
 
 @login_required
 def updateEditedComment(request, post_id, comment_id):
@@ -197,11 +196,9 @@ def updateEditedComment(request, post_id, comment_id):
         form = forms.CommentForm(request.POST, instance=comment)
 
         if form.is_valid():
-            # printing the comment fields
             print ("comment: " + form.cleaned_data['commentContent'])
-            # saving form data to our model
             comment = form.save(commit=False)
-                # specifying the post that comment belongs to
+            # specifying the post that comment belongs to
             comment.post = post
             form.save()
 

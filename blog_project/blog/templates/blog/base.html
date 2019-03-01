@@ -24,9 +24,9 @@
         <li><a href="{% url 'blog:newPost' %}">Create Blog Post</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="{% url 'blog:registration' %}"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-        <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-        <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+        <li><a href="{% url 'blog:signup' %}"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        <li><a href="{% url 'blog:login' %}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <li><a href="{% url 'blog:logout' %}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
       </ul>
     </div>
   </nav>

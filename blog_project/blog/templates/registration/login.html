@@ -1,33 +1,22 @@
-{% include "blog/base.html" %}
-{% load staticfiles %}
+{% include 'blog/base.html' %}
 
-{% load widget_tweaks %}
-
-{% block content %}
-{% endblock %}
-
-<div class = "container" >
+<div class = "container-fluid" >
     <div class = "text-center">
-      <h2>Login Page! </h2>
-      <form enctype="multipart/form-data" method="POST" action = "validate/">
-        {% csrf_token %}
-
-        {% for hidden_field in user_form.hidden_fields %}
-          {{ hidden_field }}
-        {% endfor %}
-
-        {% for field in user_form.visible_fields %}
-          <div class="form-group">
-            {{ field.label_tag }}
-            {% render_field field class="form-control" %}
-            {% if field.help_text %}
-            <small class="form-text text-muted">{{ field.help_text }}</small>
-            {% endif %}
-          </div>
-        {% endfor %}
-
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </form>
-
+      <h3>Login Here! </h3>
+      <br>
+      <div class = "center-text">
+        <form method="POST" action="{% url 'blog:validateLogin' %}">
+          {% csrf_token %}
+          <label for="username">Username:</label>
+          <br>
+          <input type="text" name="username">
+          <br>
+          <label for="password">Password: </label>
+          <br>
+          <input type="password" name="password">
+          <br> <br>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      <div>
     </div>
 </div>
