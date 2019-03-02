@@ -1,11 +1,11 @@
-from django.shortcuts import render, get_object_or_404, get_list_or_404, HttpResponseRedirect, redirect, reverse
+from django.shortcuts import render, get_object_or_404, get_list_or_404, HttpResponseRedirect, redirect
 from django.http import HttpResponse
 from blog.models import Post, Comment
 from . import forms
 from blog.forms import PostForm, CommentForm, UserForm
 from django.utils import timezone
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import authenticate
+# I used aliases here because I also have functions as login and logout
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.decorators import login_required
@@ -73,9 +73,9 @@ def validateLogin(request):
 
 @login_required
 def logout(request):
-    # Log out the user.
+    # log out the user.
     auth_logout(request)
-    # Return to homepage.
+    # return to homepage.
     return HttpResponseRedirect('/')
 
 
@@ -122,9 +122,20 @@ def publishPost(request):
 def editPost(request, post_id):
     # retrieving post object from database using its primary key
     post = get_object_or_404(Post, pk = post_id)
-    # sending post object to display its fields in the PostForm
-    post_edit_form = PostForm(instance = post)
-    return render(request, 'blog/post_edit.html', {'post_edit_form': post_edit_form})
+
+    currentUser = str(request.user)
+    postAuthor = str(post.postAuthor)
+    # print("current user is: " + currentUser)
+    # print("author is: " + postAuthor)
+
+    # if logged in user and post author are same user
+    if postAuthor == currentUser:
+        # sending post object to display its fields in the PostForm
+        post_edit_form = PostForm(instance = post)
+        return render(request, 'blog/post_edit.html', {'post_edit_form': post_edit_form})
+    else:
+        print("Someone tried to EDIT another user's post")
+        return HttpResponse("You are NOT allowed to EDIT another user's post")
 
 
 @login_required
@@ -148,9 +159,18 @@ def updatingEditedPost(request, post_id):
 
 @login_required
 def deletePost(request, post_id):
-    # deleting a record from Post model
-    Post.objects.filter(pk = post_id).delete()
-    return redirect('/')
+    post = get_object_or_404(Post, pk = post_id)
+    currentUser = str(request.user)
+    postAuthor = str(post.postAuthor)
+
+    # if logged in user and post author are same user
+    if postAuthor == currentUser:
+        # deleting a record from Post model
+        Post.objects.filter(pk = post_id).delete()
+        return redirect('/')
+    else:
+        print("Someone tried to DELETE another user's post")
+        return HttpResponse("You are NOT allowed to DELETE another user's post")
 
 @login_required
 def likePost(request, post_id):
@@ -182,11 +202,21 @@ def publishComment(request, post_id):
 
 @login_required
 def editComment(request, post_id, comment_id):
-        post = get_object_or_404(Post, pk = post_id)
-        comment = get_object_or_404(Comment, pk = comment_id)
+    post = get_object_or_404(Post, pk = post_id)
+    comment = get_object_or_404(Comment, pk = comment_id)
+
+    currentUser = str(request.user)
+    commentAuthor = str(comment.commentAuthor)
+
+    # if logged in user and comment author are the same user
+    if currentUser == commentAuthor:
         # sending comment object to display its fields in the comment form
         comment_edit_form = CommentForm(instance = comment)
         return render (request, 'blog/comment_edit.html', {'comment_edit_form': comment_edit_form})
+    else:
+        print("Someone tried to EDIT another user's comment")
+        return HttpResponse("You are NOT allowed to EDIT another user's comment")
+
 
 @login_required
 def updateEditedComment(request, post_id, comment_id):
@@ -208,5 +238,16 @@ def updateEditedComment(request, post_id, comment_id):
 @login_required
 def deleteComment(request, post_id, comment_id):
     post = get_object_or_404(Post, pk = post_id)
-    Comment.objects.filter(pk = comment_id).delete()
-    return redirect('blog:postDetail', post_id = post.pk)
+    comment = get_object_or_404(Comment, pk = comment_id)
+
+    currentUser = str(request.user)
+    commentAuthor = str(comment.commentAuthor)
+
+    # if logged in user and comment author are the same user
+    if currentUser == commentAuthor:
+        # deleting comment object from comment model
+        Comment.objects.filter(pk = comment_id).delete()
+        return redirect('blog:postDetail', post_id = post.pk)
+    else:
+        print("Someone tried to DELETE another user's comment")
+        return HttpResponse("You are NOT allowed to DELETE another user's comment")

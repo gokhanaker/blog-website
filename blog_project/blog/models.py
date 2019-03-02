@@ -2,16 +2,11 @@ from django.db import models
 from django_currentuser.middleware import (get_current_user, get_current_authenticated_user)
 from django_currentuser.db.models import CurrentUserField
 from django.utils import timezone
-# importing User model for registration, login, logout 
+# importing User model for singup, login, logout
 from django.contrib.auth.models import User
 
-# Create your models here.
-
-# https://pypi.org/project/django-currentuser/
-# https://stackoverflow.com/questions/12615154/how-to-get-the-currently-logged-in-users-user-id-in-django
-
 class Post(models.Model):
-    # linking author with the
+    # linking author with the current user
     postAuthor = CurrentUserField()
     title = models.CharField(max_length = 150)
     category = models.CharField(max_length = 150)

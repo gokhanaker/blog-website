@@ -26,6 +26,7 @@ MEDIA_DIR = os.path.join(BASE_DIR,'media')
 SECRET_KEY = 'w+m53kaqphbzvs(+wpv_rg%92w6mua-b5c4@@l#+%03m=3es1w'
 
 # SECURITY WARNING: don't run with debug turned on in production!
+# I changed it from True to False in order to handle 404 and 500
 DEBUG = True
 
 ALLOWED_HOSTS = []
