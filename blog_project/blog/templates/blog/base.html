@@ -4,32 +4,44 @@
 <html>
     <head>
         <title>Blog Project</title>
-        <!-- minified CSS from bootstrap 3 -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+        <!-- bootstrap 4 CDN links -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
         <!-- loading static CSS files -->
         <link rel="stylesheet" href="{% static 'css/blog.css' %}">
     </head>
 
-<body class='wrapper'>
-
-  <nav class="navbar navbar-inverse">
-    <div class="container">
-      <div class="navbar-header">
+<body>
+  <div class="container">
+    <nav class="navbar navbar-expand-sm bg-warning navbar-dark">
         <a class="navbar-brand" href="{% url 'blog:postList' %}">Blogging Website</a>
-      </div>
-      <ul class="nav navbar-nav">
-        <li class="active"><a href="{% url 'blog:postList' %}">Home</a></li>
-        <li><a href="{% url 'blog:newPost' %}">Create Blog Post</a></li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="{% url 'blog:signup' %}"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-        <li><a href="{% url 'blog:login' %}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-        <li><a href="{% url 'blog:logout' %}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
-      </ul>
-    </div>
-  </nav>
+
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url 'blog:postList' %}">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'blog:newPost' %}">Create Blog Post</a>
+          </li>
+        </ul>
+
+        <ul class="nav navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'blog:signup' %}"><span class="fas fa-user"></span>Sign Up</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'blog:login' %}"><span class="fas fa-sign-in-alt"></span>Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'blog:logout' %}"><span class="fas fa-sign-in-alt"></span>Logout</a>
+          </li>
+        </ul>
+
+      </nav>
+  </div>
 
 <!-- loading static Javascript files -->
 <script type="text/javascript" src="{% static 'js/blog.js' %}"></script>

@@ -94,10 +94,12 @@ def postDetail(request, post_id):
 
 @login_required
 def newPost(request):
+
     # getting PostForm
-    post_form = PostForm(request.POST)
+    post_form = PostForm()
     # sending post form as a parameter to template
     return render (request, 'blog/post_form.html', {'post_form': post_form})
+
 
 # creates a blog post for drafts but not publish yet
 @login_required
@@ -181,7 +183,7 @@ def likePost(request, post_id):
 
 @login_required
 def addComment(request, post_id):
-    comment_form = CommentForm(request.POST)
+    comment_form = CommentForm()
     return render (request, 'blog/comment_form.html', {'comment_form': comment_form})
 
 @login_required

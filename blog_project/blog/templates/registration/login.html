@@ -1,22 +1,30 @@
 {% include 'blog/base.html' %}
 
-<div class = "container-fluid" >
+{% load crispy_forms_tags %}
+
+<div class = "container" >
     <div class = "text-center">
-      <h3>Login Here! </h3>
+      <h4>Login Here!</h4>
       <br>
-      <div class = "center-text">
-        <form method="POST" action="{% url 'blog:validateLogin' %}">
-          {% csrf_token %}
-          <label for="username">Username:</label>
-          <br>
-          <input type="text" name="username">
-          <br>
-          <label for="password">Password: </label>
-          <br>
-          <input type="password" name="password">
-          <br> <br>
-          <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-      <div>
+      <form action = "{% url 'blog:validateLogin' %}" method="POST" novalidate >
+        {% csrf_token %}
+
+        <div class="row">
+           <div class="col-md-4"> </div>
+           <div class="col-md-4">
+              {{ user_form.username | as_crispy_field }}
+           </div>
+           <div class="col-md-4"></div>
+
+           <div class="col-md-4"></div>
+           <div class="col-md-4">
+               {{ user_form.password | as_crispy_field }}
+           </div>
+           <div class="col-md-4"></div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+
     </div>
 </div>

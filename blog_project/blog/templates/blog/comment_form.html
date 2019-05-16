@@ -1,20 +1,25 @@
 {% include 'blog/base.html' %}
 
-<div class = "container-fluid" >
-    <div class = "text-center">
-      <h3>Add Your Comment!</h3>
-      <br>
-      <form action = "publish/" method="POST">
-      {% csrf_token %}
 
-      {% for field in comment_form.visible_fields %}
-      <div class="form-group">
-        {{ field.label_tag }}
-        <br>
-        {{ field }}
-      </div>
-      {% endfor %}
+{% load crispy_forms_tags %}
+
+<div class = "container wrapper" >
+    <div class = "text-center">
+      <h4>Add Your Comment!</h4>
+      <br>
+      <form action = "publish/" method="POST" novalidate >
+        {% csrf_token %}
+
+         <div class="row">
+            <div class="col-md-3"> </div>
+            <div class="col-md-6">
+               {{ comment_form.commentContent | as_crispy_field }}
+            </div>
+            <div class="col-md-3"></div>
+         </div>
+
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
+
     </div>
 </div>

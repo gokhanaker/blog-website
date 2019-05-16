@@ -1,18 +1,21 @@
 from django import forms
 from .models import Post, Comment
 from django.contrib.auth.models import User
+from crispy_forms.layout import Submit
+from crispy_forms.helper import FormHelper
+
 
 class PostForm(forms.ModelForm):
 
     class Meta:
         model = Post
-        fields = ('title', 'category', 'postContent',)
+        fields = ('title', 'category', 'postContent')
 
-        widgets = {
-            'title': forms.TextInput(),
-            'category': forms.TextInput(),
-            'postContent': forms.Textarea(),
-        }
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+            self.helper = FormHelper()
+            self.helper.form_method = 'post'
+
 
 class CommentForm(forms.ModelForm):
 
@@ -20,13 +23,20 @@ class CommentForm(forms.ModelForm):
         model = Comment
         fields = ('commentContent',)
 
-        widgets = {
-            'commentContent': forms.Textarea(),
-        }
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+            self.helper = FormHelper()
+            self.helper.form_method = 'post'
+
 
 class UserForm(forms.ModelForm):
+
     password = forms.CharField(widget=forms.PasswordInput())
 
     class Meta():
         model = User
         fields = ('username','email','password')
+
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+            self.helper = FormHelper()

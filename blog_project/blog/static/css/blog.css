@@ -5,6 +5,16 @@
 }
 
 body{
+  padding: 0px;
+  margin: 0px;
+}
+
+.container{
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.wrapper{
   /* color: Coconut Milk */
   background-color: #F0EDE5;
 }
