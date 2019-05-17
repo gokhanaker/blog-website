@@ -9,12 +9,13 @@ class PostForm(forms.ModelForm):
 
     class Meta:
         model = Post
-        fields = ('title', 'category', 'postContent')
+        fields = ('title', 'category', 'postContent', 'postImage')
 
         def __init__(self, *args, **kwargs):
             super().__init__(*args, **kwargs)
             self.helper = FormHelper()
             self.helper.form_method = 'post'
+            # self.helper.form_show_errors = False 
 
 
 class CommentForm(forms.ModelForm):

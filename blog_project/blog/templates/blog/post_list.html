@@ -2,16 +2,26 @@
 {% include 'blog/base.html' %}
 
 <div class = "container wrapper" >
-  <h4 class = "text-center"> All Blog Posts </h4>
+  <h4 class = "text-center page-header"> All Blog Posts </h4>
   <div class = "row">
       {% for post in post_list %}
-      <div class = "col-md-1"> </div>
-      <div class = "col-md-3">
+      <div class = "col-md-1 bottom-buffer"> </div>
+      <div class = "col-md-2 bottom-buffer">
         <!-- a navigation link to that post's detail page -->
         <h6> <a href= "{% url 'blog:postDetail' post_id=post.pk %}"> Blog Title: {{ post.title }} </a> </h6>
         <h6> Category: {{ post.category }}</h6>
         <h6> Author: {{ post.postAuthor }}</h6>
       </div>
+      <div class="col-md-2 bottom-buffer">
+        <!-- django automatically provides the url property for you -->
+         {% if post.postImage %}
+            <!-- {{ post.postImage.url }} -->
+            <img src= "{{ post.postImage.url }}" width="240px" height="160px" alt="no post image">
+        {% endif %}
+      </div>
+      <div class="col-md-1 bottom-buffer"></div>
+
       {% endfor %}
   </div>
+  <br>
 </div>

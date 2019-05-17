@@ -6,7 +6,7 @@
     <div class = "text-center">
       <h4>Edit Your Blog Post!</h4>
       <br>
-      <form action = "update/" method="POST" novalidate >
+      <form enctype="multipart/form-data" action = "update/" method="POST" >
         {% csrf_token %}
 
         <div class="row">
@@ -27,6 +27,12 @@
                {{ post_edit_form.postContent | as_crispy_field }}
            </div>
            <div class="col-md-2"></div>
+
+            <div class="col-md-4"> </div>
+            <div class="col-md-4">
+                {{ post_edit_form.postImage | as_crispy_field }}
+            </div>
+            <div class="col-md-4"></div>
         </div>
 
         <button type="submit" class="btn btn-primary">Submit</button>

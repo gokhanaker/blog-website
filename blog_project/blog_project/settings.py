@@ -12,11 +12,13 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 
 import os
 
+MEDIA_URL = '/media/'
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATE_DIR = os.path.join(BASE_DIR,'templates')
 STATIC_DIR = os.path.join(BASE_DIR, 'static')
-MEDIA_DIR = os.path.join(BASE_DIR,'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 # Quick-start development settings - unsuitable for production
@@ -46,6 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # added this to use bootstrap 4 classes for django forms
     'crispy_forms',
+    # added this to use upload images
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -67,7 +70,7 @@ ROOT_URLCONF = 'blog_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [TEMPLATE_DIR,STATIC_DIR, MEDIA_DIR],
+        'DIRS': [TEMPLATE_DIR,STATIC_DIR, MEDIA_ROOT],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -143,6 +146,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-MEDIA_URL = '/media/'
+
 
 LOGIN_URL = '/blog/user_login/'

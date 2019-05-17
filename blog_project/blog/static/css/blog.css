@@ -19,10 +19,20 @@ body{
   background-color: #F0EDE5;
 }
 
+.page-header{
+  margin-top: 2%;
+  margin-bottom: 3%;
+  padding: 10px;
+}
+
+.bottom-buffer {
+  margin-bottom: 5%;
+}
+
+
 hr {
-  background-color: black;
-  height: 0.5px;
-  border: 0;
+  color: black;
+  height: 1px;
 }
 
 a:hover{

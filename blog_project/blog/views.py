@@ -105,7 +105,8 @@ def newPost(request):
 @login_required
 def publishPost(request):
     if request.method == 'POST':
-        form = forms.PostForm(request.POST)
+        # request.FILES part is necessary to get the image file
+        form = forms.PostForm(request.POST, request.FILES)
 
         if form.is_valid():
             # printing the post fields
@@ -117,8 +118,8 @@ def publishPost(request):
             return HttpResponseRedirect('/')
 
         else:
-            print(form.errors)
-            return HttpResponseRedirect('/blog/post_form.html')
+            post_form = PostForm()
+            return render(request, 'blog/post_form.html', {'post_form': post_form})
 
 @login_required
 def editPost(request, post_id):
@@ -145,7 +146,8 @@ def updatingEditedPost(request, post_id):
     if request.method == 'POST':
         post = get_object_or_404(Post, pk = post_id)
         # instance field is required to update the same post object NOT duplicate
-        form = forms.PostForm(request.POST, instance=post)
+        # request.FILES part is necessary to get the image file
+        form = forms.PostForm(request.POST, request.FILES, instance=post)
 
         if form.is_valid():
             print ("title: " + form.cleaned_data['title'])
@@ -199,6 +201,9 @@ def publishComment(request, post_id):
             # specifying the post that comment belongs to
             comment.post = post
             form.save()
+
+        else:
+            print ("comment box left empty!")
 
     return redirect('blog:postDetail', post_id = post.pk)
 

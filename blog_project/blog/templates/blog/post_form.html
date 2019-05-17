@@ -6,7 +6,8 @@
     <div class = "text-center">
       <h4>Create Your Blog Post! </h4>
       <br>
-      <form action = "publish/" method="POST" novalidate >
+      <!-- necessary for submitting files to server -->
+      <form enctype="multipart/form-data" action = "publish/" method="POST" >
         {% csrf_token %}
 
          <div class="row">
@@ -27,6 +28,12 @@
                 {{ post_form.postContent | as_crispy_field }}
             </div>
             <div class="col-md-2"></div>
+
+            <div class="col-md-4"> </div>
+            <div class="col-md-4">
+                {{ post_form.postImage | as_crispy_field }}
+            </div>
+            <div class="col-md-4"></div>
          </div>
 
         <button type="submit" class="btn btn-primary">Submit</button>

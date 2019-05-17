@@ -1,13 +1,12 @@
 {% include 'blog/base.html' %}
 
-
 {% load crispy_forms_tags %}
 
 <div class = "container wrapper" >
     <div class = "text-center">
       <h4>Add Your Comment!</h4>
       <br>
-      <form action = "publish/" method="POST" novalidate >
+      <form action = "publish/" method="POST" >
         {% csrf_token %}
 
          <div class="row">

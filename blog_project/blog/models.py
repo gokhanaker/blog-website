@@ -13,6 +13,9 @@ class Post(models.Model):
     postContent = models.TextField()
     postCreatedDate = models.DateTimeField(default = timezone.now)
     postLikes = models.IntegerField(default = 0)
+    # upload to field is only for imageField and fileFields
+    # user can choose to leave this field empty in that case, a default post image will be uploaded
+    postImage = models.ImageField(upload_to="blog_post_images/", default="default.png", blank= True)
 
     def publish(self):
         self.publishedDate = timezone.now()
@@ -20,7 +23,6 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
-
 
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete= models.CASCADE)
