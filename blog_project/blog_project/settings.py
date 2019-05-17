@@ -20,6 +20,9 @@ TEMPLATE_DIR = os.path.join(BASE_DIR,'templates')
 STATIC_DIR = os.path.join(BASE_DIR, 'static')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+# added this for heroku deployment
+# Add configuration for static files storage using whitenoise
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
@@ -31,12 +34,14 @@ SECRET_KEY = 'w+m53kaqphbzvs(+wpv_rg%92w6mua-b5c4@@l#+%03m=3es1w'
 # I changed it from True to False in order to handle 404 and 500
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# edited this part for heroku deployment
+ALLOWED_HOSTS = ['blog-posts-website.herokuapp.com']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    # added my django app in project's setting file
     'blog',
     # added this  for form field
     'widget_tweaks',
@@ -54,6 +59,8 @@ INSTALLED_APPS = [
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
+    # added this WhiteNoiseMiddleware for heroku deployment
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -140,8 +147,14 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
+
+
+# update database configuration for heroku deployment
+import dj_database_url
+prod_db  =  dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(prod_db)
+
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
