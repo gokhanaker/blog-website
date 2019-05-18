@@ -12,17 +12,17 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 
 import os
 
-MEDIA_URL = '/media/'
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-TEMPLATE_DIR = os.path.join(BASE_DIR,'templates')
-STATIC_DIR = os.path.join(BASE_DIR, 'static')
+TEMPLATE_ROOT= os.path.join(BASE_DIR,'templates')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # added this for heroku deployment
 # Add configuration for static files storage using whitenoise
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+# STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
@@ -35,7 +35,8 @@ SECRET_KEY = 'w+m53kaqphbzvs(+wpv_rg%92w6mua-b5c4@@l#+%03m=3es1w'
 DEBUG = True
 
 # edited this part for heroku deployment
-ALLOWED_HOSTS = ['blog-posts-website.herokuapp.com']
+# now it has a heroku host and localhost
+ALLOWED_HOSTS = ['blog-posts-website.herokuapp.com', '127.0.0.1']
 
 
 # Application definition
@@ -59,8 +60,6 @@ INSTALLED_APPS = [
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
-    # added this WhiteNoiseMiddleware for heroku deployment
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -70,6 +69,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     # added this middleware
     'django_currentuser.middleware.ThreadLocalUserMiddleware',
+    # added this WhiteNoiseMiddleware for heroku deployment
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'blog_project.urls'
@@ -77,7 +78,7 @@ ROOT_URLCONF = 'blog_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [TEMPLATE_DIR,STATIC_DIR, MEDIA_ROOT],
+        'DIRS': [TEMPLATE_ROOT, STATIC_ROOT, MEDIA_ROOT],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -159,6 +160,6 @@ DATABASES['default'].update(prod_db)
 
 STATIC_URL = '/static/'
 
-
+MEDIA_URL = '/media/'
 
 LOGIN_URL = '/blog/user_login/'
